@@ -19,7 +19,7 @@ impl Config {
 
         let ignore_case = env::var("IGNORE_CASE").is_ok();
 
-        Ok(Config { query, file_path, ignore_case })
+        Ok(Config { query, file_path, ignore_case, })
     }
 }
 
@@ -27,9 +27,9 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     let contents = fs::read_to_string(config.file_path)?;
 
     let results = if config.ignore_case {
-        search_case_insensitive(&config.query, &contents);
+        search_case_insensitive(&config.query, &contents)
     } else {
-        search(&config.query, &contents);
+        search(&config.query, &contents)
     };
     
     for line in results {
